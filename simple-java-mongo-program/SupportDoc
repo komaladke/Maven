@@ -1,0 +1,13 @@
+Create JKS file steps : 
+
+https://www.ibm.com/support/knowledgecenter/en/SSB23S_1.1.0.15/gtpd5/tmdbssljava.html
+
+keytool -import -file superadm.pem -alias mongoClient -keystore mongoStore.ts -storepass password
+keytool -list -v -keystore mongoStore.ts
+--openssl pkcs12 -export -in mongoCA.crt -inkey superadm.pem -out MongoClientKeyCert.p12 -name mongoClient
+openssl pkcs12 -export -in C:\mongo\mongoCA.crt -inkey C:\mongo\mongoCA_private.key -out C:\mongo\MongoClientKeyCert.p12 -name mongoClient
+Atosadm@7 test123@231 password
+keytool -importkeystore -srckeystore MongoClientKeyCert.p12 -destkeystore MongoClientKeyCert.jks -srcstoretype pkcs12 -alias mongoClient -destkeypass password
+keytool -list -v -keystore MongoClientKeyCert.jks
+
+keytool -importcert -trustcacerts -file C:\mongo\mongoJunitTest2\mongoJunitTest2\src\main\resources\MongoClientKeyCert.jks -keystore cacerts -storepass changeit
